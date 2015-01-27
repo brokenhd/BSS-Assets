@@ -38,14 +38,11 @@ public class Pedestrian : MonoBehaviour {
 	public string daySixA2;
 	public string daySixA2Response;
 
+	int currentDay = 1;
 	float timer = 2f;
 	bool beenClicked = false;
 	bool triggered = false;
 	GameObject chatContainer;
-
-	void Awake() {
-
-	}
 
 	void Start() {
 		chatContainer = GameObject.Find ("Container");
@@ -62,22 +59,40 @@ public class Pedestrian : MonoBehaviour {
 		if(beenClicked) return;
 
 		// Set the chat field to current level string
-		chatBox.text = dayOne;
+		
+		if(currentDay == 1) {
+			chatBox.text = dayOne; // Figure out how to change day text on level switch
+		} else if(currentDay == 2) {
+			chatBox.text = dayTwo; // Figure out how to change day text on level switch
+		} else if(currentDay == 3) {
+			chatBox.text = dayThree; // Figure out how to change day text on level switch
+		} else if(currentDay == 4) {
+			chatBox.text = dayFour; // Figure out how to change day text on level switch
+		} else if(currentDay == 5) {
+			chatBox.text = dayFive; // Figure out how to change day text on level switch
+		} else if(currentDay == 6) {
+			chatBox.text = daySix; // Figure out how to change day text on level switch
+		} else {
+			return;
+		}
 		chatContainer.GetComponent<CanvasGroup>().alpha = 1;
 
 		// Set the character to be clicked
 		beenClicked = true;
+
+		// Add one to the day counter
+		currentDay++;
 	}
 
 	void ClickedCorrectAnswer() {
-		chatBox.text = "You are very nice.";
+		chatBox.text = dayOneA1Response;
 		correctAnswer.interactable = false;
 		wrongAnswer.interactable = false;
 		triggered = true;
 	}
 
 	void ClickedWrongAnswer() {
-		chatBox.text = "You big jerk!";
+		chatBox.text = dayOneA2Response;
 		correctAnswer.interactable = false;
 		wrongAnswer.interactable = false;
 		triggered = true;		

@@ -702,9 +702,9 @@ MonoBehaviour:
   wrongAnswer: {fileID: 1402096523}
   dayOne: Hello there, nice weather isn't it?
   dayOneA1: Beautiful weather!
-  dayOneA1Response: 
+  dayOneA1Response: You are very nice!
   dayOneA2: It is miserable out here...
-  dayOneA2Response: 
+  dayOneA2Response: You are a dummy!
   dayTwo: 
   dayTwoA1: 
   dayTwoA1Response: 
@@ -803,6 +803,14 @@ Prefab:
     - target: {fileID: 496952, guid: 1e351170b433f724394924d0845b5ace, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11496974, guid: 1e351170b433f724394924d0845b5ace, type: 2}
+      propertyPath: dayOneA1Response
+      value: You are very nice!
+      objectReference: {fileID: 0}
+    - target: {fileID: 11496974, guid: 1e351170b433f724394924d0845b5ace, type: 2}
+      propertyPath: dayOneA2Response
+      value: You are a dummy!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e351170b433f724394924d0845b5ace, type: 2}
