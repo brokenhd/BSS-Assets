@@ -6,7 +6,9 @@ public class Pedestrian : MonoBehaviour {
 
 	public Text chatBox;
 	public Button correctAnswer;
+	public GameObject AnswerOneText;
 	public Button wrongAnswer;
+	public GameObject AnswerTwoText;
 	public string dayOne;
 	public string dayOneA1;
 	public string dayOneA1Response;
@@ -38,23 +40,28 @@ public class Pedestrian : MonoBehaviour {
 	public string daySixA2;
 	public string daySixA2Response;
 
+
 	int currentDay = 1;
 	float timer = 2f;
-	bool beenClicked = false;
+	private float timerInitiall;
+	public bool beenClicked = false;
 	bool triggered = false;
-	GameObject chatContainer;
+	public GameObject chatContainer;
 
 	void Start() {
-		chatContainer = GameObject.Find ("Container");
+		timerInitiall = timer;
 
 		correctAnswer.onClick.AddListener (() => { ClickedCorrectAnswer (); });
 		wrongAnswer.onClick.AddListener (() => { ClickedWrongAnswer (); });
+		chatContainer.gameObject.GetComponent<CanvasGroup>().alpha = 0;
 
-		chatContainer.GetComponent<CanvasGroup>().alpha = 0;
 		beenClicked = false;
+
 	}
+	
 
 	void OnMouseDown() {
+
 		// If you already clicked this guy, dont do anything else
 		if(beenClicked) return;
 
@@ -62,26 +69,44 @@ public class Pedestrian : MonoBehaviour {
 		
 		if(currentDay == 1) {
 			chatBox.text = dayOne; // Figure out how to change day text on level switch
+			AnswerOneText.GetComponent<Text>().text = dayOneA1;
+			AnswerTwoText.GetComponent<Text>().text = dayOneA2;
+			Debug.Log (gameObject.name);
+
 		} else if(currentDay == 2) {
 			chatBox.text = dayTwo; // Figure out how to change day text on level switch
+			AnswerOneText.GetComponent<Text>().text = dayTwoA1;
+			AnswerTwoText.GetComponent<Text>().text = dayTwoA2;	
+			Debug.Log (gameObject.name);
 		} else if(currentDay == 3) {
 			chatBox.text = dayThree; // Figure out how to change day text on level switch
+			AnswerOneText.GetComponent<Text>().text = dayThreeA1;
+			AnswerTwoText.GetComponent<Text>().text = dayThreeA2;
+
 		} else if(currentDay == 4) {
 			chatBox.text = dayFour; // Figure out how to change day text on level switch
+			AnswerOneText.GetComponent<Text>().text = dayFourA1;
+			AnswerTwoText.GetComponent<Text>().text = dayFourA2;
+
 		} else if(currentDay == 5) {
 			chatBox.text = dayFive; // Figure out how to change day text on level switch
+			AnswerOneText.GetComponent<Text>().text = dayFiveA1;
+			AnswerTwoText.GetComponent<Text>().text = dayFiveA2;
+
 		} else if(currentDay == 6) {
 			chatBox.text = daySix; // Figure out how to change day text on level switch
+			AnswerOneText.GetComponent<Text>().text = daySixA1;
+			AnswerTwoText.GetComponent<Text>().text = daySixA2;
+
 		} else {
 			return;
 		}
-		chatContainer.GetComponent<CanvasGroup>().alpha = 1;
+
+		chatContainer.gameObject.GetComponent<CanvasGroup>().alpha = 1;
 
 		// Set the character to be clicked
 		beenClicked = true;
 
-		// Add one to the day counter
-		currentDay++;
 	}
 
 	void ClickedCorrectAnswer() {
@@ -89,19 +114,27 @@ public class Pedestrian : MonoBehaviour {
 		correctAnswer.interactable = false;
 		wrongAnswer.interactable = false;
 		triggered = true;
+		UIScript.addPoint ();
 	}
 
 	void ClickedWrongAnswer() {
 		chatBox.text = dayOneA2Response;
 		correctAnswer.interactable = false;
 		wrongAnswer.interactable = false;
-		triggered = true;		
+		triggered = true;	
+		UIScript.removePoint ();
 	}
 
 	void Update() {
 		if(triggered) timer -= Time.deltaTime;
 		if (timer <= 0f) {
-			chatContainer.GetComponent<CanvasGroup>().alpha = 0;
+			chatContainer.gameObject.GetComponent<CanvasGroup>().alpha = 0;
+			timer = timerInitiall;
+			correctAnswer.interactable = true;
+			wrongAnswer.interactable = true;
+			triggered = false;
 		}
+		currentDay = UIScript.currentDay; // references the day maintained in the UIScript
+
 	}
 }
