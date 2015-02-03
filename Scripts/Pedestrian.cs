@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Pedestrian : MonoBehaviour {
 
+
 	public Text chatBox;
 	public Button correctAnswer;
 	public GameObject AnswerOneText;
@@ -39,6 +40,10 @@ public class Pedestrian : MonoBehaviour {
 	public string daySixA1Response;
 	public string daySixA2;
 	public string daySixA2Response;
+	RectTransform correctAnswerPos;
+	RectTransform wrongAnswerPos;
+
+
 
 
 	int currentDay = 1;
@@ -49,6 +54,9 @@ public class Pedestrian : MonoBehaviour {
 	public GameObject chatContainer;
 
 	void Start() {
+
+		randomizeAnswers ();
+
 		timerInitiall = timer;
 
 		correctAnswer.onClick.AddListener (() => { ClickedCorrectAnswer (); });
@@ -82,7 +90,6 @@ public class Pedestrian : MonoBehaviour {
 			chatBox.text = dayThree; // Figure out how to change day text on level switch
 			AnswerOneText.GetComponent<Text>().text = dayThreeA1;
 			AnswerTwoText.GetComponent<Text>().text = dayThreeA2;
-
 		} else if(currentDay == 4) {
 			chatBox.text = dayFour; // Figure out how to change day text on level switch
 			AnswerOneText.GetComponent<Text>().text = dayFourA1;
@@ -115,8 +122,11 @@ public class Pedestrian : MonoBehaviour {
 		wrongAnswer.interactable = false;
 		triggered = true;
 		UIScript.addPoint ();
-	}
 
+
+
+
+	}
 	void ClickedWrongAnswer() {
 		chatBox.text = dayOneA2Response;
 		correctAnswer.interactable = false;
@@ -137,4 +147,22 @@ public class Pedestrian : MonoBehaviour {
 		currentDay = UIScript.currentDay; // references the day maintained in the UIScript
 
 	}
+
+	public void randomizeAnswers() {
+
+		int ran = Random.Range (0, 10);
+		if ( ran > 5) {
+			RectTransform correctAnswerPos = correctAnswer.GetComponent<RectTransform> ();
+			RectTransform wrongAnswerPos = wrongAnswer.GetComponent<RectTransform> ();	
+			correctAnswerPos.anchoredPosition = new Vector3 (5f, 0f, 0f);
+			wrongAnswerPos.anchoredPosition = new Vector3 (-5f, 0f, 0f);
+		} else {
+			RectTransform correctAnswerPos = correctAnswer.GetComponent<RectTransform> ();
+			RectTransform wrongAnswerPos = wrongAnswer.GetComponent<RectTransform> ();	
+			correctAnswerPos.anchoredPosition = new Vector3 (0f, 0f, 0f);
+			wrongAnswerPos.anchoredPosition = new Vector3 (0f, 0f, 0f);
+		}
+
+	}
+
 }

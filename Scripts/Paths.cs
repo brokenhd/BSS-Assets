@@ -40,6 +40,7 @@ public class Paths : MonoBehaviour {
 			pedestrians[i].gameObject.transform.position = pathStart[i].gameObject.transform.position;
 			pedestrians[i].gameObject.GetComponent<Pedestrian>().beenClicked = false;
 			pedestrians[i].gameObject.GetComponent<Pedestrian>().chatContainer.gameObject.GetComponent<CanvasGroup>().alpha = 0;
+			pedestrians[i].gameObject.GetComponent<Pedestrian>().randomizeAnswers();
 		}
 	}
 
